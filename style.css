@@ -1,0 +1,63 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.container{
+    display: flex;
+    
+  
+}
+button{
+    font-size: 50px;
+    padding: 10px;
+    width: 100px;
+    height: 100px;   
+}
+
+.calculator{
+    margin-top: 0px;
+    width: 400px;
+    height: 650px;
+    flex-direction: column;
+
+}
+
+.display{
+    border: 2px solid black;
+    width: 396px;
+    height: 150px;
+}
+
+
+
+
+.funnum{
+    flex-direction: column;
+}
+
+.functions{
+    width: 300px;
+    height: 100px;
+}
+
+.numbers{
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 300px;
+    height: 400px;
+
+}
+
+
+#zero{
+    width: 200px;
+
+}
+
+.operators{
+    flex-direction: column;
+}
+
