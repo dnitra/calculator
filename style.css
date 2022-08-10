@@ -1,63 +1,85 @@
+*{}
 body{
     display: flex;
     justify-content: center;
     align-items: center;
+    align-items: center;
     height: 100%;
-}
-
-.container{
-    display: flex;
-    
-  
-}
-button{
-    font-size: 50px;
-    padding: 10px;
-    width: 100px;
-    height: 100px;   
-}
-
-.calculator{
-    margin-top: 0px;
-    width: 400px;
-    height: 650px;
-    flex-direction: column;
-
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .display{
     border: 2px solid black;
-    width: 396px;
-    height: 150px;
-}
-
-
-
-
-.funnum{
+    width: 260px;
+    height: 130px;
+    padding: 10px;
+    background-color: white;
+    display: flex;
     flex-direction: column;
-}
-
-.functions{
-    width: 300px;
-    height: 100px;
-}
-
-.numbers{
     flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 300px;
-    height: 400px;
+    
+}
+
+.calculator{
+    width: 325px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 2px solid black;
+    background-color: rgb(178, 178, 178);
+    padding: 3% 0;
+    border-radius: 5%;
+    
+
+}
+
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    
+}
+
+button{
+    margin: 0;
+    font-size: 25px;
+    padding: 10px;
+    width: 20%;
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1%;
+    border-radius: 15%;
+    
+}
+#CLEAR,#bsc{
+    width: 40%;
+    margin: 4% 2%
+    
 
 }
 
 
-#zero{
-    width: 200px;
+span{
+    display: flex;
+    direction: rtl;
+    align-items: flex-end;
+    flex: 1 1 auto;
+    word-break: break-all;
+    text-dire
 
 }
 
-.operators{
-    flex-direction: column;
+#presentCalculation{
+    font-size: 40px;
+
 }
+
+
+
+
+
+
 
