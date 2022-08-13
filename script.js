@@ -1,10 +1,11 @@
 const presentCalculation = document.querySelector("#presentCalculation")
-let firstNumber= ""
-let secondNumber= ""
-let pastNumber =""
+const pastCalculation = document.querySelector("#pastCalculation")
+const buttons = document.querySelectorAll("button")
+let firstNumber= null
+let secondNumber= null
+let result = null
 let op = ""
-let result = ""
-inicialize()
+let check = true
 
 const operators = {
 
@@ -19,88 +20,31 @@ const functions={
     "Enter": equal,
     'Backspace':backspace,
     'Escape':inicialize,
+    ".":addDot
 }
 
+buttons.forEach(button=>button.addEventListener("click",e=>userInput(e.target.value)))
 
-
-
-document.addEventListener("keydown",(e)=>{
-    const key = document.querySelector(`button[value="${e.key}"`)
-   
-    if(!key && e.key!= "Enter")return
-        
-    if(e.key in functions){
-            if (op == "=" && e.key!="Escape") return
-            
-            else{
-                functions[e.key]()
-                }
-        }
-        
-    
-    else if(e.key in operators){
-        
-                    
-        if(pastNumber.length==0){
-            pastNumber = presentCalculation.textContent
-            secondNumber = " "
-            op = e.key
-            return
-        }
-        
-        else if(pastNumber.length>0 ){
-            
-            firstNumber = pastNumber
-            op = e.key
-            secondNumber = presentCalculation.textContent
-            result = operators[op](firstNumber, secondNumber)
-            presentCalculation.textContent = result
-            pastNumber = result
-            op = e.key
-            
-            
-        }
-        
-    }
-    
-    else{
-        if(e.key == "."){
-            if(presentCalculation.textContent=='') presentCalculation.textContent+= "0."
-            else if (presentCalculation.textContent.indexOf(".")>-1) return
-            else presentCalculation.textContent+= "."
-        }
-        else if (secondNumber == ""){
-                
-            presentCalculation.textContent+= key.value
-        }
-        else if(secondNumber!=""){
-            presentCalculation.textContent = ""
-            presentCalculation.textContent+= key.value
-            secondNumber="" 
-        }
-        
-            
-    }
-
-})
+document.addEventListener("keydown",(e)=>userInput(e.key))
 
 function inicialize(){
-    firstNumber= ""
-    secondNumber= ""
+    firstNumber= null
+    secondNumber= null
+    result=null
     op=""
-    presentCalculation.textContent=""
+    presentCalculation.textContent= ""
+    check= true
 }
 
 
 function equal() {
-
-    firstNumber = pastNumber
+    if(op=="=") return
+    firstNumber = result
     secondNumber = presentCalculation.textContent
     result = operators[op](firstNumber, secondNumber)
     presentCalculation.textContent = result
     op ="="
-    pastNumber=""
-    secondNumber=""
+    check = false
 }
 
 function backspace(){
@@ -109,3 +53,50 @@ function backspace(){
     presentCalculation.textContent = str
 }
 
+function addDot(){
+    if(presentCalculation.textContent=='') presentCalculation.textContent+= "0."
+    else if (presentCalculation.textContent.indexOf(".")>-1 ||op=="=") return
+    else presentCalculation.textContent+= "."
+}
+
+function addNumber(num){
+    if (op == "=")return
+        else if(!check){
+            presentCalculation.textContent = ""
+            presentCalculation.textContent+= num
+            check=true
+        }
+        else if (check){      
+            presentCalculation.textContent+= num   
+        }
+}
+function calculate(operator){
+    if(result == null){
+        result = presentCalculation.textContent
+        op = operator
+        check = false
+             
+    }
+    
+    else if(result !== null){
+        if (op == "=") {
+            op = operator
+            return}
+        
+        firstNumber = result
+        secondNumber = presentCalculation.textContent
+        result = operators[op](firstNumber, secondNumber)
+        presentCalculation.textContent = result
+        op = operator
+        check = false
+        
+    }
+}
+
+function userInput(pressedButton){
+    if(pressedButton in functions) functions[pressedButton]()      
+        
+    else if(pressedButton in operators) calculate(pressedButton)
+    
+    else if(parseInt(pressedButton)) addNumber(pressedButton)
+}
