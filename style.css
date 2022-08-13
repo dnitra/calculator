@@ -1,28 +1,14 @@
-*{}
+
 body{
     display: flex;
     justify-content: center;
-    align-items: center;
-    align-items: center;
-    height: 100%;
+
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: azure;
 }
 
-.display{
-    border: 2px solid black;
-    width: 260px;
-    min-height: 130px;
-    padding: 10px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-end
-    
-}
-
 .calculator{
+    margin-top: 50px;
     width: 325px;
     display: flex;
     flex-wrap: wrap;
@@ -31,8 +17,20 @@ body{
     background-color: rgb(178, 178, 178);
     padding: 2% 0;
     border-radius: 5%;
-    
+}
 
+.display{
+    border: 2px solid black;
+    width: 260px;
+    min-height: 120px;
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    
 }
 
 .buttons{
@@ -56,11 +54,21 @@ button{
     border-radius: 15%;
     
 }
-#CLEAR,#bsc{
-    width: 40%;
-    margin: 4% 2%
+
+button:hover{
+    opacity: 0.8;
+}
+.function{
+    background-color: rgb(255, 152, 55);
     
 
+}
+
+.operator{
+    background-color: rgb(219, 171, 0);
+}
+#equal{
+    background-color: rgb(93, 154, 247);
 }
 
 .past{
@@ -74,18 +82,20 @@ span{
 
 }
 
-#presentCalculation{
+#presentCalculation,#pastCalculation{
     font-size: 40px;
     max-width: 100%;
     display: inline-block;
     text-align:right;
     word-wrap: break-word;
     vertical-align: text-bottom;
-  
-    
- 
-
 }
+
+#pastCalculation{
+    font-size: 20px;
+}
+
+
 
 
 

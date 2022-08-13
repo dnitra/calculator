@@ -6,13 +6,14 @@ let secondNumber= null
 let result = null
 let op = ""
 let check = true
+const rounded = 1000
 
 const operators = {
-
-    '+': (a, b) => Number(a) + Number(b), 
-    '-': (a, b) => Number(a) - Number(b),
-    '*': (a, b) => Number(a) * Number(b), 
-    '/': (a, b) => Number(a) / Number(b),
+   
+    '+': (a, b) => Math.round((Number(a) + Number(b))*rounded)/rounded, 
+    '-': (a, b) => Math.round((Number(a) - Number(b))*rounded)/rounded,
+    '*': (a, b) => Math.round((Number(a) * Number(b))*rounded)/rounded, 
+    '/': (a, b) => Math.round((Number(a) / Number(b))*rounded)/rounded,
 };
 
 const functions={
@@ -20,12 +21,57 @@ const functions={
     "Enter": equal,
     'Backspace':backspace,
     'Escape':inicialize,
-    ".":addDot
+    'c':inicialize,
+    '.':addDot,
+    '±':changePlusMinus,
+    '%':percentage
 }
 
 buttons.forEach(button=>button.addEventListener("click",e=>userInput(e.target.value)))
 
 document.addEventListener("keydown",(e)=>userInput(e.key))
+
+
+function userInput(pressedButton){
+    if(pressedButton in functions) functions[pressedButton]()      
+        
+    else if(pressedButton in operators) calculate(pressedButton)
+    
+    else if(Number(pressedButton)||pressedButton=="0") addNumber(pressedButton)
+
+   
+}
+
+function calculate(operator){
+    if(result == null){
+        result = presentCalculation.textContent
+        op = operator
+        check = false
+        pastDisplay(result,null,op)
+             
+    }
+    
+    else if(result !== null){
+        if (op == "=") {
+            op = operator
+            pastDisplay(result,null,op)
+            return}
+        
+        firstNumber = result
+        secondNumber = presentCalculation.textContent
+        result = operators[op](firstNumber, secondNumber)
+        
+        presentCalculation.textContent = result
+       
+        
+        op = operator
+        pastDisplay(result,null,op)
+        check = false
+
+        
+        
+    }
+}
 
 function inicialize(){
     firstNumber= null
@@ -66,7 +112,7 @@ function addDot(){
 }
 
 function addNumber(num){
-    if (op == "=")return
+    if (op == "=" || presentCalculation.textContent=="0")return
     else if(!check){
         presentCalculation.textContent = ""
         presentCalculation.textContent+= num
@@ -76,52 +122,27 @@ function addNumber(num){
         presentCalculation.textContent+= num   
     }
 }
-function calculate(operator){
-    if(result == null){
-        result = presentCalculation.textContent
-        op = operator
-        check = false
-        pastDisplay(result,null,op)
-             
-    }
-    
-    else if(result !== null){
-        if (op == "=") {
-            op = operator
-            pastDisplay(result,null,op)
-            return}
-        
-        firstNumber = result
-        secondNumber = presentCalculation.textContent
-        result = operators[op](firstNumber, secondNumber)
-        
-        presentCalculation.textContent = result
-       
-        
-        op = operator
-        pastDisplay(result,null,op)
-        check = false
-
-        
-        
-    }
-}
-
-function userInput(pressedButton){
-    if(pressedButton in functions) functions[pressedButton]()      
-        
-    else if(pressedButton in operators) calculate(pressedButton)
-    
-    else if(Number(pressedButton)||pressedButton=="0") addNumber(pressedButton)
-
-   
-}
 
 function pastDisplay(num1,num2,operator){
-
+    
+    operator = changeOperator(operator)
     if(num2==null) {
-        console.log("jaj")
         pastCalculation.textContent = num1 + " "+operator}
 
     else{pastCalculation.textContent = num1 + " "+operator+" " + num2 + " =" }
+}
+
+function changeOperator(operator){
+    if (operator == "*")return "×"
+    else if (operator == "/") return "÷"
+    else return operator
+}
+function changePlusMinus(){
+    presentCalculation.textContent = 
+    (Number(presentCalculation.textContent)*(-1)).toString()
+}
+
+function percentage(){
+    presentCalculation.textContent = 
+    (Number(presentCalculation.textContent)*(0.01)).toString()
 }
