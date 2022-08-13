@@ -7,33 +7,19 @@ let result = ""
 inicialize()
 
 const operators = {
-    
-    '=': ()=> {
-
-        firstNumber = pastNumber
-        secondNumber = presentCalculation.textContent
-        result = operators[op](firstNumber, secondNumber)
-        presentCalculation.textContent = result
-        op ="="
-        pastNumber=""
-        secondNumber=""
-
-
-
-
-    },
-    'Backspace':()=>{
-        let str = presentCalculation.textContent.substring(0,presentCalculation.textContent.length-1)
-        presentCalculation.textContent = str
-        },
-    'Escape':inicialize,
 
     '+': (a, b) => Number(a) + Number(b), 
     '-': (a, b) => Number(a) - Number(b),
     '*': (a, b) => Number(a) * Number(b), 
     '/': (a, b) => Number(a) / Number(b),
-    
 };
+
+const functions={
+    '=': equal,
+    "Enter": equal,
+    'Backspace':backspace,
+    'Escape':inicialize,
+}
 
 
 
@@ -41,16 +27,21 @@ const operators = {
 document.addEventListener("keydown",(e)=>{
     const key = document.querySelector(`button[value="${e.key}"`)
    
-    if(!key)return
-    if(e.key in operators){
+    if(!key && e.key!= "Enter")return
         
-        if(e.key == "Escape" || e.key == "Backspace" || e.key == "="){
+    if(e.key in functions){
             if (op == "=" && e.key!="Escape") return
+            
             else{
-             operators[e.key]()
-            }
-            }
-        else if(pastNumber.length==0){
+                functions[e.key]()
+                }
+        }
+        
+    
+    else if(e.key in operators){
+        
+                    
+        if(pastNumber.length==0){
             pastNumber = presentCalculation.textContent
             secondNumber = " "
             op = e.key
@@ -73,15 +64,21 @@ document.addEventListener("keydown",(e)=>{
     }
     
     else{
-        if (secondNumber == ""){
-            
+        if(e.key == "."){
+            if(presentCalculation.textContent=='') presentCalculation.textContent+= "0."
+            else if (presentCalculation.textContent.indexOf(".")>-1) return
+            else presentCalculation.textContent+= "."
+        }
+        else if (secondNumber == ""){
+                
             presentCalculation.textContent+= key.value
         }
         else if(secondNumber!=""){
             presentCalculation.textContent = ""
             presentCalculation.textContent+= key.value
-            secondNumber=""
+            secondNumber="" 
         }
+        
             
     }
 
@@ -94,10 +91,21 @@ function inicialize(){
     presentCalculation.textContent=""
 }
 
-function calculate() {
 
+function equal() {
+
+    firstNumber = pastNumber
+    secondNumber = presentCalculation.textContent
+    result = operators[op](firstNumber, secondNumber)
+    presentCalculation.textContent = result
+    op ="="
+    pastNumber=""
+    secondNumber=""
 }
 
-function handleDisplay(){
-
+function backspace(){
+    let str = presentCalculation.textContent.substring(0,presentCalculation.textContent.length-1)
+    
+    presentCalculation.textContent = str
 }
+
