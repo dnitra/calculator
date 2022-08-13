@@ -33,6 +33,7 @@ function inicialize(){
     result=null
     op=""
     presentCalculation.textContent= ""
+    pastCalculation.textContent= ""
     check= true
 }
 
@@ -43,8 +44,13 @@ function equal() {
     secondNumber = presentCalculation.textContent
     result = operators[op](firstNumber, secondNumber)
     presentCalculation.textContent = result
+
+    pastDisplay(firstNumber,secondNumber,op)
+
     op ="="
     check = false
+
+    
 }
 
 function backspace(){
@@ -61,34 +67,42 @@ function addDot(){
 
 function addNumber(num){
     if (op == "=")return
-        else if(!check){
-            presentCalculation.textContent = ""
-            presentCalculation.textContent+= num
-            check=true
-        }
-        else if (check){      
-            presentCalculation.textContent+= num   
-        }
+    else if(!check){
+        presentCalculation.textContent = ""
+        presentCalculation.textContent+= num
+        check=true
+    }
+    else if (check){      
+        presentCalculation.textContent+= num   
+    }
 }
 function calculate(operator){
     if(result == null){
         result = presentCalculation.textContent
         op = operator
         check = false
+        pastDisplay(result,null,op)
              
     }
     
     else if(result !== null){
         if (op == "=") {
             op = operator
+            pastDisplay(result,null,op)
             return}
         
         firstNumber = result
         secondNumber = presentCalculation.textContent
         result = operators[op](firstNumber, secondNumber)
+        
         presentCalculation.textContent = result
+       
+        
         op = operator
+        pastDisplay(result,null,op)
         check = false
+
+        
         
     }
 }
@@ -98,5 +112,16 @@ function userInput(pressedButton){
         
     else if(pressedButton in operators) calculate(pressedButton)
     
-    else if(parseInt(pressedButton)) addNumber(pressedButton)
+    else if(Number(pressedButton)||pressedButton=="0") addNumber(pressedButton)
+
+   
+}
+
+function pastDisplay(num1,num2,operator){
+
+    if(num2==null) {
+        console.log("jaj")
+        pastCalculation.textContent = num1 + " "+operator}
+
+    else{pastCalculation.textContent = num1 + " "+operator+" " + num2 + " =" }
 }
