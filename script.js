@@ -110,11 +110,11 @@ function addDot(){
     
     if (op=="=") return
     else if(presentCalculation.textContent==''||!check){ 
-        presentCalculation.textContent = "0,"
+        presentCalculation.textContent = "0."
         check = true
     }
-    else if(presentCalculation.textContent.indexOf(",")<0) {
-        presentCalculation.textContent+= ","
+    else if(presentCalculation.textContent.indexOf(".")<0) {
+        presentCalculation.textContent+= "."
     }
 }
 
