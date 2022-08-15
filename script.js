@@ -23,6 +23,7 @@ const functions={
     'Escape':inicialize,
     'c':inicialize,
     '.':addDot,
+    ',':addDot,
     '±':changePlusMinus,
     '%':percentage
 }
