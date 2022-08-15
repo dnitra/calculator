@@ -85,7 +85,7 @@ function inicialize(){
 
 
 function equal() {
-    if(op=="=") return
+    if(op=="=" || op ==``) return
     firstNumber = result
     secondNumber = presentCalculation.textContent
     result = operators[op](firstNumber, secondNumber)
@@ -106,9 +106,15 @@ function backspace(){
 }
 
 function addDot(){
-    if(presentCalculation.textContent=='') presentCalculation.textContent+= "0."
-    else if (presentCalculation.textContent.indexOf(".")>-1 ||op=="=") return
-    else presentCalculation.textContent+= "."
+    
+    if (op=="=") return
+    else if(presentCalculation.textContent==''||!check){ 
+        presentCalculation.textContent = "0."
+        check = true
+    }
+    else if(presentCalculation.textContent.indexOf(".")<0) {
+        presentCalculation.textContent+= "."
+    }
 }
 
 function addNumber(num){

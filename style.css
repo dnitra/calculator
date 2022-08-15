@@ -4,6 +4,7 @@ body{
     justify-content: center;
 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
     background-color: azure;
 }
 
@@ -22,7 +23,7 @@ body{
 .display{
     border: 2px solid black;
     width: 260px;
-    min-height: 120px;
+    min-height: 125px;
     padding: 10px;
     background-color: white;
     display: flex;
@@ -38,6 +39,7 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     width: 90%;
+    margin-top: 20px;
     
 }
 
@@ -46,7 +48,7 @@ button{
     font-size: 30px;
     padding: 10px;
     width: 20%;
-    border-radius: 5%;
+    border: 2px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
